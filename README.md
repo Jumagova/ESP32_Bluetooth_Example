@@ -38,10 +38,4 @@ Connect the sensor to pin 32 on the ESP32 development board. Optionally, connect
 - The ESP32 periodically reads sensor data and transmits it to the client device via BLE.
 - The ESP32 can receive control commands (e.g., to turn on/off an LED) from the client device and act accordingly.
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- This project is based on examples provided by the ESP32 Arduino Core and BLE libraries.
