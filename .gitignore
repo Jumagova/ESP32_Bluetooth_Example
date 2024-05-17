@@ -42,6 +42,7 @@ Temporary Items
 .pio
 
 ### VisualStudioCode ###
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
