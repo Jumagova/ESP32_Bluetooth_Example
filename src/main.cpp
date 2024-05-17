@@ -13,9 +13,11 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 // BLE settings
-#define SERVICE_UUID "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
-#define CHARACTERISTIC_UUID_RX "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
-#define CHARACTERISTIC_UUID_TX "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
+// See the following for generating UUIDs:
+// https://www.uuidgenerator.net/
+#define SERVICE_UUID "81fcf4c4-6939-42a9-9a32-33209d86738a"
+#define CHARACTERISTIC_UUID_RX "RX"
+#define CHARACTERISTIC_UUID_TX "TX"
 
 BLECharacteristic *pTxCharacteristic;
 BLECharacteristic *pRxCharacteristic;
@@ -48,7 +50,8 @@ class MyServerCallbacks : public BLEServerCallbacks {
 void setup() {
     Serial.begin(115200);
     Serial.println("Starting BLE work!");
-
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(SENSOR_PIN, INPUT);
     setupOLED();
     setupBLE();
 }
@@ -64,7 +67,6 @@ void loop() {
 void setupOLED() {
     if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
         Serial.println(F("SSD1306 allocation failed"));
-        for (;;) ; // Don't proceed, loop forever
     }
     display.clearDisplay();
     display.setTextSize(1.5);
@@ -119,7 +121,6 @@ void notifySensorValue() {
     Serial.print(txString);
     Serial.println(" ***");
 
-    // Update OLED display with the transmitted value
     updateOLED(("Sent Value: " + txString).c_str());
 }
 
@@ -139,10 +140,9 @@ void handleReceivedValue() {
         }
 
         Serial.println("*********");
-        // Update OLED display with the received value
-        updateOLED(("Received: " + String(rxValue.c_str())).c_str());
 
-        // Clear the receive buffer
+        updateOLED(("Received: " + String(rxValue.c_str())).c_str());
+      
         pRxCharacteristic->setValue("");
     }
 }
