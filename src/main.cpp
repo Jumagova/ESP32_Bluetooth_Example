@@ -16,8 +16,8 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
 #define SERVICE_UUID "81fcf4c4-6939-42a9-9a32-33209d86738a"
-#define CHARACTERISTIC_UUID_RX "RX"
-#define CHARACTERISTIC_UUID_TX "TX"
+#define CHARACTERISTIC_UUID_RX "9a317ed6-3ff9-4d67-b2a7-3b25b4ef9818"
+#define CHARACTERISTIC_UUID_TX "d4a20c30-0612-4fe1-8258-c12822df3d6e"
 
 BLECharacteristic *pTxCharacteristic;
 BLECharacteristic *pRxCharacteristic;
@@ -82,7 +82,7 @@ void setupBLE() {
     BLEService *pService = pServer->createService(SERVICE_UUID);
     
     pTxCharacteristic = pService->createCharacteristic(
-        CHARACTERISTIC_UUID_TX,
+        CHARACTERISTIC_UUID_TX, 
         BLECharacteristic::PROPERTY_NOTIFY
     );
 
